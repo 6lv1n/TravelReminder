@@ -1,6 +1,5 @@
 package com.travelreminder.android22;
 
-/* IMPORT */
 import java.util.Timer;
 import java.util.TimerTask;
 import android.content.Context;
