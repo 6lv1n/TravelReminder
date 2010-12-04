@@ -3,8 +3,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
+
 	<TextView android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:text="Travel Reminder : Don't forget your path !" />
+
 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:stretchColumns="1">

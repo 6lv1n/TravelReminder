@@ -1,5 +1,6 @@
 package com.travelreminder.android22;
 
+/* IMPORT */
 import java.util.Timer;
 import java.util.TimerTask;
 import android.content.Context;
@@ -26,13 +27,11 @@ public class MyLocation {
 		// exceptions will be thrown if provider is not permitted.
 		try {
 			gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		} catch (Exception ex) {
-		}
+		} catch (Exception ex) { ex.printStackTrace(); }
 		try {
 			network_enabled = lm
 					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-		} catch (Exception ex) {
-		}
+		} catch (Exception ex) { ex.printStackTrace(); }
 
 		// don't start listeners if no provider is enabled
 		if (!gps_enabled && !network_enabled)
@@ -45,7 +44,7 @@ public class MyLocation {
 			lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
 					locationListenerNetwork);
 		timer1 = new Timer();
-		timer1.schedule(new GetLastLocation(), 20000);
+		timer1.schedule(new GetLastLocation(), 5000);
 		return true;
 	}
 
@@ -123,3 +122,4 @@ public class MyLocation {
 		public abstract void gotLocation(Location location);
 	}
 }
+

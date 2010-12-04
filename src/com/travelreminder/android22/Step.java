@@ -10,7 +10,7 @@ public class Step {
 
 	private	Location	location;
 	private Time		time;
-		
+
 	public Step(Location location) {
 		//super();
 		this.location = location;
