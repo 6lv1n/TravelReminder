@@ -12,13 +12,13 @@ import android.os.Bundle;
 //import com.travelreminder.android22.Exceptions.NoCooException;
 
 public class MyLocation extends Activity {
-	private			Timer 			timer1;
-	private			LocationManager	lm;
-	private			LocationResult	locationResult;
-	private	static	Location		userLocation;
-	private	boolean 				gps_enabled = false;
-	private	boolean 				network_enabled = false;
-	public int 						LOCATION_TIMEOUT = 8000;
+	private Timer timer1;
+	private	LocationManager lm;
+	private	LocationResult locationResult;
+	private	static Location userLocation;
+	private	boolean gps_enabled = false;
+	private	boolean network_enabled = false;
+	public int LOCATION_TIMEOUT = 10000;
 
 	public boolean getLocation(Context context, LocationResult result) {
 		locationResult = result;
