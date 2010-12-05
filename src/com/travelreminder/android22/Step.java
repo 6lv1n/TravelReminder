@@ -24,8 +24,8 @@ public class Step {
 		this.location = location;
 	}
 
-	public String getTime() {
-		return time.toString();
+	public Time getTime() {
+		return time;
 	}
 	
 	public String toString() {		
