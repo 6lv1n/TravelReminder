@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.travelreminder.android22.MyLocation.LocationResult;
+import com.travelreminder.android22.Exceptions.NoCooException;
 
 public class TravelReminder extends Activity {
 
@@ -57,35 +58,50 @@ public class TravelReminder extends Activity {
 					Toast.LENGTH_SHORT);
 			toast.show();
 		} else {
+			String txtToast = "Add step!";
+			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
+					Toast.LENGTH_SHORT);
+			toast.show();
 			getUserPosition();
 		}
 	}
 
 	public void exitButtonAction(View view) {
+		TR_IS_RUNNING = false;
+		testTravel = null;
+		myLocation = null;
 		finish();
 	}
 
 	public void getUserPosition() {
-		if(!myLocation.getLocation(this, locationResult)) {
-			String txtToast = "BUGGG 123";
+		try {
+			if (!myLocation.getLocation(this, locationResult)) {
+				throw new NoCooException("No Coo :X");
+			}
+		} catch (NoCooException ex) {
+			String txtToast = ex.getMessage();
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
 					Toast.LENGTH_SHORT);
-			toast.show();			
-		} 
+			toast.show();
+		}
 	}
 
 	public LocationResult locationResult = new LocationResult() {
 		@Override
 		public void gotLocation(final Location location) {
+
+			testTravel.addStep(location);
+			mTxtViewlat.setText(" " + location.getLatitude());
+			mTxtViewlong.setText(" " + location.getLongitude());
+			mTxtViewtrav.setText(" " + testTravel.getStep(location).toString());
+
+		}
+
+		public boolean testLocation(final Location location) {
 			if (location != null) {
-				testTravel.addStep(location);
-				mTxtViewlat.setText(" " + location.getLatitude());
-				mTxtViewlong.setText(" " + location.getLongitude());
-				mTxtViewtrav.setText(" "
-						+ testTravel.getStep(location).toString());
-			} else {
-				mTxtViewlat.setText("Bordel !");
+				return true;
 			}
+			return false;
 		}
 	};
 }
