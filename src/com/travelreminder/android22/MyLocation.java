@@ -18,7 +18,7 @@ public class MyLocation extends Activity {
 	private	static Location userLocation;
 	private	boolean gps_enabled = false;
 	private	boolean network_enabled = false;
-	public int LOCATION_TIMEOUT = 10000;
+	public int LOCATION_TIMEOUT = 5000;
 
 	public boolean getLocation(Context context, LocationResult result) {
 		locationResult = result;
@@ -52,9 +52,7 @@ public class MyLocation extends Activity {
 
 			timer1 = new Timer();
 			timer1.schedule(new GetLastLocation(), LOCATION_TIMEOUT);
-			if (userLocation != null) {
-				return true;
-			}
+			if (userLocation != null) { return true; }
 			return false;
 	}
 
@@ -101,30 +99,30 @@ public class MyLocation extends Activity {
 			lm.removeUpdates(locationListenerGps);
 			lm.removeUpdates(locationListenerNetwork);
 			Location net_loc = null, gps_loc = null;
+			
 			if (gps_enabled)
 				gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			
 			if (network_enabled)
 				net_loc = lm
 						.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			
 			if (gps_loc != null && net_loc != null) {
 				if (gps_loc.getTime() > net_loc.getTime()) {
 					userLocation = new Location(gps_loc);
-					//locationResult.gotLocation(gps_loc);
 				} else {
 					userLocation = new Location(net_loc);
-					//locationResult.gotLocation(net_loc);
 				}
-				//locationFound = true;
 				return;
 			}
+			
 			if (gps_loc != null) {
 				userLocation = new Location(gps_loc);
-				//locationResult.gotLocation(gps_loc);				
 				return;
 			}
+			
 			if (net_loc != null) {
 				userLocation = new Location(net_loc);
-				//locationResult.gotLocation(net_loc);
 				return;
 			}
 			userLocation = null;
