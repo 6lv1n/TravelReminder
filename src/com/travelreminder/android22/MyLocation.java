@@ -21,16 +21,14 @@ public class MyLocation {
 		// MyLocation to user code.
 		locationResult = result;
 		if (lm == null)
-			lm = (LocationManager) context
-					.getSystemService(Context.LOCATION_SERVICE);
+			lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
 		// exceptions will be thrown if provider is not permitted.
 		try {
 			gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
 		} catch (Exception ex) { ex.printStackTrace(); }
 		try {
-			network_enabled = lm
-					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+			network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 		} catch (Exception ex) { ex.printStackTrace(); }
 
 		// don't start listeners if no provider is enabled
