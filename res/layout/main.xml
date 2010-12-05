@@ -47,11 +47,12 @@
 		<TableRow>
 		
 			<TextView android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="Travel" />
+				android:layout_height="wrap_content" android:gravity="top" android:text="Travel" />
 			
 			<EditText android:id="@+id/texttrav" android:layout_width="fill_parent"
-				android:selectAllOnFocus="false" android:layout_height="wrap_content" android:lines="10" android:text="ARghhHh"
-				android:background="#D4D0C8" android:textColor="#000000" />
+				android:selectAllOnFocus="false" android:editable="false" android:layout_height="wrap_content" 
+				android:lines="10" android:text="ARghhHh" android:background="#D4D0C8" android:gravity="top"
+				android:textColor="#000000" />
 		
 		</TableRow>
 		<TableRow>
