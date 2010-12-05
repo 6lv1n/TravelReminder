@@ -91,9 +91,9 @@ public class TravelReminder extends Activity {
 		public void gotLocation(final Location location) {
 
 			testTravel.addStep(location);
-			mTxtViewlat.setText(" " + location.getLatitude());
-			mTxtViewlong.setText(" " + location.getLongitude());
-			mTxtViewtrav.setText(" " + testTravel.getStep(location).toString());
+			mTxtViewlat.setText(" " + location.getLatitude() );
+			mTxtViewlong.setText(" " + location.getLongitude() );
+			mTxtViewtrav.setText(" " + testTravel.toString());
 
 		}
 

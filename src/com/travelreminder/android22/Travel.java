@@ -78,7 +78,7 @@ public class Travel {
 		final Iterator<Step> travelIterator = this.myTravel.iterator();
 		String tmpTravelStr = "";
 		while (travelIterator.hasNext()) {			
-			tmpTravelStr = tmpTravelStr + travelIterator.next().toString() + " // ";
+			tmpTravelStr = tmpTravelStr + "\n" + travelIterator.next().toString() + " // ";
 		}
 		return tmpTravelStr;
 	}

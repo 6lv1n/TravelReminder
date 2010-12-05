@@ -38,7 +38,8 @@
 				android:layout_height="wrap_content" android:text="coordLat" />
 			
 			<EditText android:id="@+id/textlat" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="Ingredient"
+				android:layout_height="wrap_content" android:scrollHorizontally="true"
+				android:text="Ingredient" android:editable="false" android:focusable="false"
 				android:background="#D4D0C8" android:textColor="#000000" />
 				
 		</TableRow>
@@ -49,7 +50,7 @@
 				android:layout_height="wrap_content" android:text="Travel" />
 			
 			<EditText android:id="@+id/texttrav" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="ARghhHh"
+				android:selectAllOnFocus="false" android:layout_height="wrap_content" android:lines="10" android:text="ARghhHh"
 				android:background="#D4D0C8" android:textColor="#000000" />
 		
 		</TableRow>
