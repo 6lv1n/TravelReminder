@@ -2,21 +2,23 @@ package com.travelreminder.android22;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.app.Activity;
-import android.widget.Toast;
+//import android.widget.Toast;
+//import com.travelreminder.android22.Exceptions.NoCooException;
 
 public class MyLocation extends Activity {
-	Timer timer1;
-	LocationManager lm;
-	LocationResult locationResult;
-	boolean gps_enabled = false;
-	boolean network_enabled = false;
-	public int LOCATION_TIMEOUT = 5000;
+	private			Timer 			timer1;
+	private			LocationManager	lm;
+	private			LocationResult	locationResult;
+	private	static	Location		userLocation;
+	private	boolean 				gps_enabled = false;
+	private	boolean 				network_enabled = false;
+	public int 						LOCATION_TIMEOUT = 8000;
 
 	public boolean getLocation(Context context, LocationResult result) {
 		locationResult = result;
@@ -27,10 +29,6 @@ public class MyLocation extends Activity {
 		try {
 			gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
 		} catch (Exception ex) {
-			String txtToast = "BUGGG 1";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
 			ex.printStackTrace();
 		}
 
@@ -38,10 +36,6 @@ public class MyLocation extends Activity {
 			network_enabled = lm
 					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 		} catch (Exception ex) {
-			String txtToast = "BUGGG 2";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
 			ex.printStackTrace();
 		}
 
@@ -56,9 +50,12 @@ public class MyLocation extends Activity {
 			lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
 					locationListenerNetwork);
 
-		timer1 = new Timer();
-		timer1.schedule(new GetLastLocation(), LOCATION_TIMEOUT);
-		return true;
+			timer1 = new Timer();
+			timer1.schedule(new GetLastLocation(), LOCATION_TIMEOUT);
+			if (userLocation != null) {
+				return true;
+			}
+			return false;
 	}
 
 	private LocationListener locationListenerGps = new LocationListener() {
@@ -68,6 +65,7 @@ public class MyLocation extends Activity {
 			lm.removeUpdates(this);
 			lm.removeUpdates(locationListenerNetwork);
 		}
+
 		public void onProviderDisabled(String provider) {
 		}
 
@@ -77,7 +75,7 @@ public class MyLocation extends Activity {
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 		}
 	};
-	
+
 	private LocationListener locationListenerNetwork = new LocationListener() {
 		public void onLocationChanged(Location location) {
 			timer1.cancel();
@@ -85,6 +83,7 @@ public class MyLocation extends Activity {
 			lm.removeUpdates(this);
 			lm.removeUpdates(locationListenerGps);
 		}
+
 		public void onProviderDisabled(String provider) {
 		}
 
@@ -94,10 +93,11 @@ public class MyLocation extends Activity {
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 		}
 	};
-	
+
 	private class GetLastLocation extends TimerTask {
 		@Override
 		public void run() {
+			timer1.cancel();
 			lm.removeUpdates(locationListenerGps);
 			lm.removeUpdates(locationListenerNetwork);
 			Location net_loc = null, gps_loc = null;
@@ -107,24 +107,31 @@ public class MyLocation extends Activity {
 				net_loc = lm
 						.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 			if (gps_loc != null && net_loc != null) {
-				if (gps_loc.getTime() > net_loc.getTime())
-					locationResult.gotLocation(gps_loc);
-				else
-					locationResult.gotLocation(net_loc);
+				if (gps_loc.getTime() > net_loc.getTime()) {
+					userLocation = new Location(gps_loc);
+					//locationResult.gotLocation(gps_loc);
+				} else {
+					userLocation = new Location(net_loc);
+					//locationResult.gotLocation(net_loc);
+				}
+				//locationFound = true;
 				return;
 			}
 			if (gps_loc != null) {
-				locationResult.gotLocation(gps_loc);
+				userLocation = new Location(gps_loc);
+				//locationResult.gotLocation(gps_loc);				
 				return;
 			}
 			if (net_loc != null) {
-				locationResult.gotLocation(net_loc);
+				userLocation = new Location(net_loc);
+				//locationResult.gotLocation(net_loc);
 				return;
 			}
-			locationResult.gotLocation(null);
+			userLocation = null;
+			return;
 		}
 	}
-	
+
 	public static abstract class LocationResult {
 		public abstract void gotLocation(Location location);
 	}
