@@ -14,7 +14,7 @@ public class MyLocation {
 	LocationResult locationResult;
 	boolean gps_enabled = false;
 	boolean network_enabled = false;
-	public int LOCATION_TIMEOUT = 20000; 
+	public int LOCATION_TIMEOUT = 200000; 
 
 	public boolean getLocation(Context context, LocationResult result) {
 		// I use LocationResult callback class to pass location value from
