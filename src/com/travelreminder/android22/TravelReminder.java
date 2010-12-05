@@ -1,7 +1,5 @@
 package com.travelreminder.android22;
 
-// comment
-
 import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
