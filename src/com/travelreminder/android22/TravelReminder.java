@@ -32,6 +32,11 @@ public class TravelReminder extends Activity {
 		mTxtViewtrav = (TextView) findViewById(R.id.texttrav);
 	}
 
+	@Override
+	protected void onResume(){
+		super.onResume();
+	};
+	
 	public void startTravelButtonAction(View view) {
 		if (!TR_IS_RUNNING) {
 			String txtToast = "TR started!";
