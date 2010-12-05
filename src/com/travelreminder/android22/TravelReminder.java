@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-// Local import 
 import com.travelreminder.android22.MyLocation.LocationResult;
 
 public class TravelReminder extends Activity {
