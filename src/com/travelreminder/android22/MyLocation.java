@@ -14,6 +14,7 @@ public class MyLocation {
 	LocationResult locationResult;
 	boolean gps_enabled = false;
 	boolean network_enabled = false;
+	public int LOCATION_TIMEOUT = 20000; 
 
 	public boolean getLocation(Context context, LocationResult result) {
 		// I use LocationResult callback class to pass location value from
@@ -43,7 +44,7 @@ public class MyLocation {
 			lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
 					locationListenerNetwork);
 		timer1 = new Timer();
-		timer1.schedule(new GetLastLocation(), 5000);
+		timer1.schedule(new GetLastLocation(), LOCATION_TIMEOUT);
 		return true;
 	}
 
