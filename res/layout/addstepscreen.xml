@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-	<LinearLayout 	xmlns:android="http://schemas.android.com/apk/res/android"
-					android:orientation="vertical" android:layout_width="fill_parent"
-					android:layout_height="fill_parent" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 	
-		<TextView	android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:text="You are in the New Screen" />
-	
-		<Button		android:id="@+id/btnClick2" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="Close" />
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:stretchColumns="1">
 
-	</LinearLayout>
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:text="You are in the New Screen" />
+
+		<TableRow>
+
+
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="coordLong" />
+
+			<EditText android:id="@+id/textlong" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Ingredient"
+				android:background="#D4D0C8" android:textColor="#000000" />
+
+		</TableRow>
+
+		<TableRow>
+
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="coordLat" />
+
+			<EditText android:id="@+id/textlat" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Ingredient"
+				android:background="#D4D0C8" android:textColor="#000000" />
+
+		</TableRow>
+
+		<TableRow>
+
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Travel" />
+
+			<EditText android:id="@+id/texttrav" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="ARghhHh"
+				android:lines="10" android:gravity="top" android:editable="false"
+				android:scrollHorizontally="true" android:selectAllOnFocus="false"
+				android:background="#D4D0C8" android:textColor="#000000" />
+
+		</TableRow>
+
+
+
+
+		<Button android:id="@+id/btnClick2" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Close" />
+
+	</TableLayout>
+
+</LinearLayout>
