@@ -1,8 +1,7 @@
 package com.travelreminder.android22;
 
-// New comment
-
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.travelreminder.android22.MyLocation.LocationResult;
-import com.travelreminder.android22.Exceptions.NoCooException;
 
 public class TravelReminder extends Activity {
 
@@ -20,7 +18,7 @@ public class TravelReminder extends Activity {
 	private TextView mTxtViewlat;
 	private TextView mTxtViewtrav;
 	private Travel testTravel;
-	private MyLocation myLocation;
+	private MyLocation userLocation;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -39,7 +37,7 @@ public class TravelReminder extends Activity {
 					Toast.LENGTH_SHORT);
 			toast.show();
 			testTravel = new Travel();
-			myLocation = new MyLocation();
+			userLocation = new MyLocation();
 			TR_IS_RUNNING = true;
 		} else {
 			String txtToast = "TR is not started!";
@@ -49,6 +47,13 @@ public class TravelReminder extends Activity {
 			testTravel = null;
 			TR_IS_RUNNING = false;
 		}
+	}
+
+	public void exitButtonAction(View view) {
+		TR_IS_RUNNING = false;
+		testTravel = null;
+		userLocation = null;
+		finish();
 	}
 
 	public void addStepButtonAction(View view) {
@@ -62,46 +67,65 @@ public class TravelReminder extends Activity {
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
 					Toast.LENGTH_SHORT);
 			toast.show();
-			getUserPosition();
+			Intent i = new Intent(TravelReminder.this, AddStepScreen.class);
+			startActivity(i);
+			
+			//getUserPosition();
 		}
 	}
 
-	public void exitButtonAction(View view) {
-		TR_IS_RUNNING = false;
-		testTravel = null;
-		myLocation = null;
-		finish();
-	}
-
-	public void getUserPosition() {
-		try {
-			if (!myLocation.getLocation(this, locationResult)) {
-				throw new NoCooException("No Coo :X");
-			}
-		} catch (NoCooException ex) {
-			String txtToast = ex.getMessage();
+	public void showTravelButtonAction(View view) {
+		if (!TR_IS_RUNNING) {
+			String txtToast = "TR is not started!";
+			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
+					Toast.LENGTH_SHORT);
+			toast.show();
+			return;
+		}
+		if (testTravel.getTravel().size() > 0) {
+			String txtToast = "Show travel: " + testTravel.getTravel().size() + " étapes";
+			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
+					Toast.LENGTH_SHORT);
+			toast.show();
+			printUserTravel();
+		} else {
+			String txtToast = "Travel is empty!";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
 					Toast.LENGTH_SHORT);
 			toast.show();
 		}
 	}
 
+	public void printUserTravel() {
+		mTxtViewtrav.setText(testTravel.toString());
+	}
+
+	public void getUserPosition() {
+		if (!userLocation.getLocation(this, locationResult)) {
+			String txtToast = "Error";
+			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
+					Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		/*
+		 * { throw new NoCooException("No Coo :X"); } } catch (NoCooException
+		 * ex) { String txtToast = ex.getMessage(); Toast toast =
+		 * Toast.makeText(getApplicationContext(), txtToast,
+		 * Toast.LENGTH_SHORT); toast.show(); }
+		 */
+	}
+
 	public LocationResult locationResult = new LocationResult() {
 		@Override
 		public void gotLocation(final Location location) {
-
-			testTravel.addStep(location);
-			/*mTxtViewlat.setText(" " + location.getLatitude());
-			mTxtViewlong.setText(" " + location.getLongitude());
-			mTxtViewtrav.setText(" " + testTravel.getStep(location).toString());*/
-
-		}
-
-		public boolean testLocation(final Location location) {
-			if (location != null) {
-				return true;
+			if (location != null)
+				testTravel.addStep(location);
+			else {
+				String txtToast = "No valid coo!";
+				Toast toast = Toast.makeText(getApplicationContext(), txtToast,
+						Toast.LENGTH_SHORT);
+				toast.show();
 			}
-			return false;
 		}
 	};
 }

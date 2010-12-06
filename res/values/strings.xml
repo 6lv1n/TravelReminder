@@ -7,4 +7,5 @@
 <string name="tr_service_stopped">TR stopped!</string>
 <string name="str_add_step">Add step</string>
 <string name="str_exit">Exit</string>
+<string name="str_show_travel">Show travel</string>
 </resources>
