@@ -35,6 +35,7 @@ public class TravelReminder extends Activity {
 	@Override
 	protected void onResume(){
 		super.onResume();
+		this.getPreferences(0);
 	};
 	
 	public void startTravelButtonAction(View view) {
@@ -97,9 +98,9 @@ public class TravelReminder extends Activity {
 
 			testTravel.addStep(location);
 
-			/*mTxtViewlat.setText(" " + location.getLatitude());
+			mTxtViewlat.setText(" " + location.getLatitude());
 			mTxtViewlong.setText(" " + location.getLongitude());
-			mTxtViewtrav.setText(" " + testTravel.getStep(location).toString());*/
+			mTxtViewtrav.setText(" " + testTravel.getStep(location).toString());
 
 		}
 
