@@ -4,21 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class TravelReminder extends Activity {
 
 	public static Travel testTravel;
 	public static boolean TR_IS_RUNNING = false;
-	private TextView mTxtViewtrav;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		mTxtViewtrav = (TextView) findViewById(R.id.texttrav);
 	}
 
 	public void startTravelButtonAction(View view) {
@@ -52,10 +49,6 @@ public class TravelReminder extends Activity {
 					Toast.LENGTH_SHORT);
 			toast.show();
 		} else {
-			String txtToast = "Add step!";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
 			Intent i = new Intent(TravelReminder.this, AddStepScreen.class);
 			startActivity(i);
 		}
@@ -70,7 +63,8 @@ public class TravelReminder extends Activity {
 			return;
 		}
 		if (testTravel.getTravel().size() > 0) {
-			String txtToast = "Show travel: " + testTravel.getTravel().size() + " étapes";
+			String txtToast = testTravel.getTravel().toString() + "\n"
+					+ testTravel.getTravel().size() + " étapes";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
 					Toast.LENGTH_SHORT);
 			toast.show();
