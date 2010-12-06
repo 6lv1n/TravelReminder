@@ -28,7 +28,7 @@ public class Step {
 		return time;
 	}
 	
-	public String toString() {		
+	public String toString() {
 		return (this.location.getLatitude() + " " + this.location.getLongitude());
 	}
 }
