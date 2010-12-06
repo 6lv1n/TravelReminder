@@ -9,10 +9,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity class=".AddStepScreen" android:label="TR: Add Step">
+		<activity android:label="TR: Add Step" android:name=".AddStepScreen">
 		</activity>
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
 	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"></uses-permission>
 	<uses-sdk android:minSdkVersion="8" />
 </manifest> 
+
