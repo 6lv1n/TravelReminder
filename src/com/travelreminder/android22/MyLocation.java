@@ -14,6 +14,7 @@ public class MyLocation {
     LocationResult locationResult;
     boolean gps_enabled=false;
     boolean network_enabled=false;
+    public int LOCATION_DELAY = 10000;
 
     public boolean getLocation(Context context, LocationResult result)
     {
@@ -36,7 +37,7 @@ public class MyLocation {
             lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork);
         
         timer1=new Timer();
-        timer1.schedule(new GetLastLocation(), 20000);
+        timer1.schedule(new GetLastLocation(), LOCATION_DELAY);
         return true;
     }
 
