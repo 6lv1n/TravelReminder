@@ -2,6 +2,7 @@ package com.travelreminder.android22;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -10,18 +11,27 @@ public class TravelReminder extends Activity {
 
 	public static Travel testTravel;
 	public static boolean TR_IS_RUNNING = false;
+	public static final String PREFS_NAME = "MyPrefsFile";
+
+	private SharedPreferences mPrefs;
 
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		SharedPreferences mPrefs = getSharedPreferences(PREFS_NAME,0);
+        TR_IS_RUNNING = mPrefs.getBoolean("TR_STATE", false);
+
 		setContentView(R.layout.main);
 	}
 
 	@Override
-	protected void onResume(){
-		super.onResume();
-		this.getPreferences(0);
+	protected void onPause(){
+		super.onPause();
+		SharedPreferences mPrefs = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putBoolean("TR_STATE", TR_IS_RUNNING);
+        ed.commit();
 	};
 	
 	public void startTravelButtonAction(View view) {
