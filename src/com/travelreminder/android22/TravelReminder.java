@@ -34,6 +34,14 @@ public class TravelReminder extends Activity {
         ed.commit();
 	};
 	
+	protected void onStop(){
+		super.onStop();
+		SharedPreferences mPrefs = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putBoolean("TR_STATE", TR_IS_RUNNING);
+        ed.commit();
+	}
+	
 	public void startTravelButtonAction(View view) {
 		if (!TR_IS_RUNNING) {
 			String txtToast = "TR started!";
