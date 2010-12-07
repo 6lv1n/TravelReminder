@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">TravelReminder</string>
+<string name="str_button_start">Start</string>
+<string name="str_button_stop">Stop</string>
+<string name="tr_service_started">TR started!</string>
+<string name="tr_service_stopped">TR stopped!</string>
+<string name="str_add_step">Add step</string>
+<string name="str_exit">Exit</string>
+<string name="str_show_travel">Show travel</string>
+</resources>
