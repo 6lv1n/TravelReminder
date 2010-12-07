@@ -6,11 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class TravelReminder extends Activity {
 
 	public static Travel testTravel;
-	public static boolean TR_IS_RUNNING = false;
+	public static boolean TR_IS_RUNNING;
 	public static final String PREFS_NAME = "MyPrefsFile";
 
 	private SharedPreferences mPrefs;
@@ -19,16 +20,17 @@ public class TravelReminder extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SharedPreferences mPrefs = getSharedPreferences(PREFS_NAME,0);
+		mPrefs = getSharedPreferences(PREFS_NAME,0);
         TR_IS_RUNNING = mPrefs.getBoolean("TR_STATE", false);
-
 		setContentView(R.layout.main);
+		ToggleButton StartStopButton = (ToggleButton) findViewById(R.id.id_button_start_stop);
+		StartStopButton.setChecked(TR_IS_RUNNING);
 	}
 
 	@Override
 	protected void onPause(){
 		super.onPause();
-		SharedPreferences mPrefs = getSharedPreferences(PREFS_NAME, 0);
+		mPrefs = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
         ed.putBoolean("TR_STATE", TR_IS_RUNNING);
         ed.commit();
@@ -36,7 +38,7 @@ public class TravelReminder extends Activity {
 	
 	protected void onStop(){
 		super.onStop();
-		SharedPreferences mPrefs = getSharedPreferences(PREFS_NAME, 0);
+		mPrefs = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
         ed.putBoolean("TR_STATE", TR_IS_RUNNING);
         ed.commit();
