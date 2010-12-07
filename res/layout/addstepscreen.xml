@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:stretchColumns="1">
+
+		<TableRow>
+
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="coordLong" />
+
+			<EditText android:id="@+id/textlong" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Ingredient"
+				android:background="#D4D0C8" android:textColor="#000000" />
+
+		</TableRow>
+
+		<TableRow>
+
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="coordLat" />
+
+			<EditText android:id="@+id/textlat" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Ingredient"
+				android:background="#D4D0C8" android:textColor="#000000" />
+
+		</TableRow>
+
+		<Button android:id="@+id/btnclose" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Close" />
+
+	</TableLayout>
+
+</LinearLayout>

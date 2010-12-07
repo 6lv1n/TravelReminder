@@ -11,6 +11,7 @@
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:stretchColumns="1">
 
+
 		<ToggleButton android:id="@+id/id_button_start_stop"
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true" android:textOff="@string/str_button_start"
@@ -21,44 +22,16 @@
 			android:layout_alignParentBottom="true" android:text="@string/str_add_step"
 			android:onClick="addStepButtonAction" />
 			
-		<TableRow>
-		
-			<TextView android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="coordLong" />
-				
-			<EditText android:id="@+id/textlong" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="Ingredient"
-				android:background="#D4D0C8" android:textColor="#000000" />
-
-		</TableRow>
-		
-		<TableRow>
-		
-			<TextView android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="coordLat" />
-			
-			<EditText android:id="@+id/textlat" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:scrollHorizontally="true"
-				android:text="Ingredient" android:editable="false" android:focusable="false"
-				android:background="#D4D0C8" android:textColor="#000000" />
-				
-		</TableRow>
+		<Button android:id="@+id/id_button_show_travel"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true" android:text="@string/str_show_travel"
+			android:onClick="showTravelButtonAction" />
 
 		<TableRow>
 		
-			<TextView android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:gravity="top" android:text="Travel" />
-			
-			<EditText android:id="@+id/texttrav" android:layout_width="fill_parent"
-				android:selectAllOnFocus="false" android:editable="false" android:layout_height="wrap_content" 
-				android:lines="10" android:text="ARghhHh" android:background="#D4D0C8" android:gravity="top"
-				android:textColor="#000000" />
-		
-		</TableRow>
-		<TableRow>
 		</TableRow>
 
-			<Button android:id="@+id/id_button_add_step"
+		<Button android:id="@+id/id_button_add_step"
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true" android:text="@string/str_exit"
 			android:onClick="exitButtonAction" />
@@ -66,5 +39,3 @@
 	</TableLayout>
 
 </LinearLayout>
-
-
