@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class MyLocation {
 	
@@ -42,7 +43,7 @@ public class MyLocation {
 		if (network_enabled)
 			lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
 					locationListenerNetwork);
-
+		
 		timer1 = new Timer();
 		timer1.schedule(new GetLastLocation(), LOCATION_DELAY);
 		return true;
@@ -90,11 +91,11 @@ public class MyLocation {
 			lm.removeUpdates(locationListenerGps);
 			lm.removeUpdates(locationListenerNetwork);
 
-			Location net_loc = null, gps_loc = null;
-			if (gps_enabled)
-				gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-			if (network_enabled)
-				net_loc = lm
+			//Location net_loc = null, gps_loc = null;
+			//if (gps_enabled)
+				Location gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			//if (network_enabled)
+				Location net_loc = lm
 						.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
 			// if there are both values use the latest one
@@ -115,6 +116,8 @@ public class MyLocation {
 				return;
 			}
 			locationResult.gotLocation(null);
+			this.cancel();
+			return;
 		}
 	}
 
