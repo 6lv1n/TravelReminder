@@ -89,11 +89,8 @@ public class TravelReminder extends Activity {
 			return;
 		}
 		if (testTravel.getTravel().size() > 0) {
-			String txtToast = testTravel.getTravel().toString() + "\n"
-					+ testTravel.getTravel().size() + " étapes";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
+			Intent i = new Intent(TravelReminder.this, ShowTravelScreen.class);
+			startActivity(i);
 		} else {
 			String txtToast = "Travel is empty!";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
