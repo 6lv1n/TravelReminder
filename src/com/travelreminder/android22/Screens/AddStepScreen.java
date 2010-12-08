@@ -41,8 +41,6 @@ public class AddStepScreen extends Activity {
 	public LocationResult locationResult = new LocationResult() {
 		@Override
 		public void gotLocation(final Location location) {
-
-			// try {
 			if (location != null) {
 				mTxtViewlat.getHandler().post(new Runnable() {
 					public void run() {

@@ -24,8 +24,10 @@ public class TravelReminder extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mPrefs = getSharedPreferences(PREFS_NAME,0);
-        TR_IS_RUNNING = mPrefs.getBoolean("TR_STATE", false);
-		setContentView(R.layout.main);
+		//FIXME
+        TR_IS_RUNNING = ( mPrefs.getBoolean("TR_STATE", false) && testTravel != null );
+
+        setContentView(R.layout.main);
 		ToggleButton StartStopButton = (ToggleButton) findViewById(R.id.id_button_start_stop);
 		StartStopButton.setChecked(TR_IS_RUNNING);
 	}
