@@ -7,7 +7,7 @@
 	<com.google.android.maps.MapView
 		xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/mapview"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:clickable="true" android:apiKey="05:FB:98:F7:9E:EA:D0:3A:28:13:C8:8E:40:10:6E:2E" />
+		android:clickable="true" android:apiKey="0BthyojN-X0Qg2kbuYJCZ4gTdJFL-RzybvdbB3A" />
 
 	<Button android:id="@+id/btnclose" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:text="Close" />
