@@ -2,9 +2,11 @@ package com.travelreminder.android22;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.travelreminder.android22.Screens.AddStepScreen;
 import com.travelreminder.android22.Screens.ShowTravelScreen;
@@ -12,15 +14,41 @@ import com.travelreminder.android22.Screens.ShowTravelScreen;
 public class TravelReminder extends Activity {
 
 	public static Travel testTravel;
-	public static boolean TR_IS_RUNNING = false;
+	public static boolean TR_IS_RUNNING;
+	public static final String PREFS_NAME = "MyPrefsFile";
+
+	private SharedPreferences mPrefs;
 
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		mPrefs = getSharedPreferences(PREFS_NAME,0);
+		//FIXME
+        TR_IS_RUNNING = ( mPrefs.getBoolean("TR_STATE", false) && testTravel != null );
+
+        setContentView(R.layout.main);
+		ToggleButton StartStopButton = (ToggleButton) findViewById(R.id.id_button_start_stop);
+		StartStopButton.setChecked(TR_IS_RUNNING);
 	}
 
+	@Override
+	protected void onPause(){
+		super.onPause();
+		mPrefs = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putBoolean("TR_STATE", TR_IS_RUNNING);
+        ed.commit();
+	};
+	
+	protected void onStop(){
+		super.onStop();
+		mPrefs = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+        ed.putBoolean("TR_STATE", TR_IS_RUNNING);
+        ed.commit();
+	}
+	
 	public void startTravelButtonAction(View view) {
 		if (!TR_IS_RUNNING) {
 			String txtToast = "TR started!";

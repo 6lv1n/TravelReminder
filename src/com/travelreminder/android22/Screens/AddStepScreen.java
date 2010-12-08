@@ -41,18 +41,29 @@ public class AddStepScreen extends Activity {
 	public LocationResult locationResult = new LocationResult() {
 		@Override
 		public void gotLocation(final Location location) {
-			try {
-				if (location != null) {
-					mTxtViewlat.setText(" " + location.getLatitude());
-					mTxtViewlong.setText(" " + location.getLongitude());
-					TravelReminder.testTravel.addStep(location);
-				} else
-					throw new NoCooException(
-							"Invalid location received. Aborting...");
-			} catch (NoCooException ex) {
-				Toast toast = Toast.makeText(getApplicationContext(),
-						ex.getMessage(), Toast.LENGTH_SHORT);
-				toast.show();
+			if (location != null) {
+				mTxtViewlat.getHandler().post(new Runnable() {
+					public void run() {
+						mTxtViewlat.setText(" " + location.getLatitude());
+					}
+				});
+				mTxtViewlong.getHandler().post(new Runnable() {
+					public void run() {
+						mTxtViewlong.setText(" " + location.getLongitude());
+					}
+				});
+				TravelReminder.testTravel.addStep(location);
+			} else {
+				mTxtViewlat.getHandler().post(new Runnable() {
+					public void run() {
+						mTxtViewlat.setText("No latitude found in time");
+					}
+				});
+				mTxtViewlong.getHandler().post(new Runnable() {
+					public void run() {
+						mTxtViewlong.setText("No longitude found in time");
+					}
+				});
 			}
 		}
 	};
