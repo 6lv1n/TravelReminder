@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.travelreminder.android22.Screens.AddStepScreen;
+import com.travelreminder.android22.Screens.ShowTravelScreen;
+
 public class TravelReminder extends Activity {
 
 	public static Travel testTravel;
