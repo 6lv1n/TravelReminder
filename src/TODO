@@ -1,3 +1,24 @@
 régler le cas ou on quitte mais pas possible démarrer car croit que TR started
 afficher le nb d'étapes
 faire un bouton afficher trajet
+
+
+rendre attributs priavte et faire getter/Setter action de clean pour activités
+
+réfléchir et renseigner meilleur méthode/workflow pour rendre tr pleinement androidible
+
+
+faire en sorte de pouvoir reprendre un trajet, nouveau trajet
+creer des methodes serializable pr tous les objets a save
+
+interface de sauvegarde --> prefs, historique
+
+1/ démmarrer direct sur la carte avec position actuelle
+2/ AFFICHER LES anciens trajets sur la map
+3/ Nouveau trajet
+4/ Partir en mode notif
+5/ une timeline couplé diapo
+6/ partage de trajets
+
+
+

@@ -1,18 +1,23 @@
 package com.travelreminder.android22.Screens;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.maps.Overlay;
 import com.travelreminder.android22.MyLocation;
-import com.travelreminder.android22.R;
-import com.travelreminder.android22.TravelReminder;
 import com.travelreminder.android22.MyLocation.LocationResult;
-import com.travelreminder.android22.Exceptions.NoCooException;
+import com.travelreminder.android22.R;
+import com.travelreminder.android22.StepItemizedOverlay;
+import com.travelreminder.android22.TravelReminder;
 
 public class AddStepScreen extends Activity {
 
@@ -68,6 +73,11 @@ public class AddStepScreen extends Activity {
 		}
 	};
 
+	protected void onStop(){
+		super.onStop();
+		userLocation.timer1.cancel();
+	}
+	
 	public void getUserPosition() {
 		userLocation = new MyLocation();
 		if (!userLocation.getLocation(this, locationResult)) {

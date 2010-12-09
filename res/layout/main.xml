@@ -1,41 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@android:id/tabhost" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-
-	<TextView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:text="Travel Reminder : Don't forget your path !" />
-
-	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:stretchColumns="1">
-
-
-		<ToggleButton android:id="@+id/id_button_start_stop"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true" android:textOff="@string/str_button_start"
-			android:textOn="@string/str_button_stop" android:onClick="startTravelButtonAction" />
-
-		<Button android:id="@+id/id_button_add_step"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true" android:text="@string/str_add_step"
-			android:onClick="addStepButtonAction" />
-			
-		<Button android:id="@+id/id_button_show_travel"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true" android:text="@string/str_show_travel"
-			android:onClick="showTravelButtonAction" />
-
-		<TableRow>
-		
-		</TableRow>
-
-		<Button android:id="@+id/id_button_add_step"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true" android:text="@string/str_exit"
-			android:onClick="exitButtonAction" />
-
-	</TableLayout>
-
-</LinearLayout>
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="fill_parent">
+		<TabWidget android:id="@android:id/tabs"
+			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+		<FrameLayout android:id="@android:id/tabcontent"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+			<RelativeLayout android:id="@+id/emptylayout1"
+				android:orientation="vertical" android:layout_width="fill_parent"
+				android:layout_height="fill_parent" />
+			<TextView android:id="@+id/textview2" android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:text="Details Details Details Details" />
+		</FrameLayout>
+	</LinearLayout>
+</TabHost>

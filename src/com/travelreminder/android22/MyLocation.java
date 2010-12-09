@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class MyLocation {
 	
-	Timer timer1;
+	public Timer timer1;
 	LocationManager lm;
 	LocationResult locationResult;
 	boolean gps_enabled = false;
