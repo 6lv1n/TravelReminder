@@ -19,7 +19,7 @@ import com.travelreminder.android22.R;
 import com.travelreminder.android22.StepItemizedOverlay;
 import com.travelreminder.android22.TravelReminder;
 
-public class AddStepScreen extends Activity {
+public class AddStepView extends Activity {
 
 	private MyLocation userLocation;
 	private TextView mTxtViewlong;
@@ -28,7 +28,7 @@ public class AddStepScreen extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.addstepscreen);
+		setContentView(R.layout.addstepview);
 		mTxtViewlong = (TextView) findViewById(R.id.textlong);
 		mTxtViewlat = (TextView) findViewById(R.id.textlat);
 

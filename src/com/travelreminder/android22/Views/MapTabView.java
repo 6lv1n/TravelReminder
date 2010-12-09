@@ -9,7 +9,7 @@ public class MapTabView extends MapActivity {
 	@Override
 	protected void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		setContentView(R.layout.showtravelscreen);
+		setContentView(R.layout.showtravelview);
 	}
 
 	@Override

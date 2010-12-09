@@ -23,7 +23,7 @@ public class ShowTravelScreen extends MapActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.showtravelscreen);
+		setContentView(R.layout.showtravelview);
 
 		/*Button b = (Button) findViewById(R.id.btnclose);
 		b.setOnClickListener(new View.OnClickListener() {

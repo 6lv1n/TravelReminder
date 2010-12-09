@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-import com.travelreminder.android22.Views.ActionView;
+import com.travelreminder.android22.Views.UserActionView;
 import com.travelreminder.android22.Views.MapTabView;
 
 public class TravelReminder extends TabActivity {
@@ -36,7 +36,7 @@ public class TravelReminder extends TabActivity {
 		TabSpec tabSpec = mTabHost.newTabSpec("tab_actions");
 		tabSpec.setIndicator("Actions");
 		Context ctx = this.getApplicationContext();
-		Intent i = new Intent(ctx, ActionView.class);
+		Intent i = new Intent(ctx, UserActionView.class);
 		tabSpec.setContent(i);
 		
 		mTabHost.addTab(tabSpec);

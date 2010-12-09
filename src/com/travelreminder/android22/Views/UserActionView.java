@@ -10,7 +10,7 @@ import com.travelreminder.android22.R;
 import com.travelreminder.android22.Travel;
 import com.travelreminder.android22.TravelReminder;
 
-public class ActionView extends Activity {
+public class UserActionView extends Activity {
 
 	private SharedPreferences mPrefs;
 	
@@ -18,10 +18,10 @@ public class ActionView extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.useractionsscreen);
+		setContentView(R.layout.useractionview);
 	}
 	
-	public void startTravelButtonAction(View view) {
+	public void startNewTravelButtonAction(View view) {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 
