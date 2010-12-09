@@ -9,8 +9,6 @@ import android.widget.Toast;
 import com.travelreminder.android22.R;
 import com.travelreminder.android22.Travel;
 import com.travelreminder.android22.TravelReminder;
-import com.travelreminder.android22.Screens.AddStepScreen;
-import com.travelreminder.android22.Screens.ShowTravelScreen;
 
 public class ActionView extends Activity {
 
@@ -20,25 +18,39 @@ public class ActionView extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.actions);
+		setContentView(R.layout.useractionsscreen);
 	}
 	
 	public void startTravelButtonAction(View view) {
-		
-		/*if (!TR_IS_RUNNING) {
+		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+
+		if(!mPrefs.getBoolean("TR_STATE", false)) {
+			ed.putBoolean("TR_STATE", true);
+			ed.commit();
+			
 			String txtToast = "TR started!";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
 					Toast.LENGTH_SHORT);
 			toast.show();
-			testTravel = new Travel();
-			TR_IS_RUNNING = true;
+			
+			// TODO : interface d'accès aux trajets save et y accéder
+			
+			//testTravel = new Travel();
 		} else {
+			ed.putBoolean("TR_STATE", false);
+			ed.commit();
+			
 			String txtToast = "TR is not started!";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
 					Toast.LENGTH_SHORT);
 			toast.show();
-			testTravel = null;
-			TR_IS_RUNNING = false;
+		}
+		
+		/*if (!TR_IS_RUNNING) {
+
+		} else {
+
 		}*/
 		
 	}
@@ -47,6 +59,11 @@ public class ActionView extends Activity {
 		/*TR_IS_RUNNING = false;
 		testTravel = null;
 		finish();*/
+		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+		ed.putBoolean("TR_STATE", false);
+		ed.commit();
+		finish();
 	}
 
 	public void addStepButtonAction(View view) {

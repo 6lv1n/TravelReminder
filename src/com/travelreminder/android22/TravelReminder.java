@@ -5,13 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import android.widget.Toast;
 
-import com.travelreminder.android22.Screens.AddStepScreen;
-import com.travelreminder.android22.Screens.ShowTravelScreen;
 import com.travelreminder.android22.Views.ActionView;
 import com.travelreminder.android22.Views.MapTabView;
 
@@ -34,9 +30,7 @@ public class TravelReminder extends TabActivity {
 		TR_IS_RUNNING = (mPrefs.getBoolean("TR_STATE", false) && testTravel != null);
 
 		setContentView(R.layout.main);
-		// ToggleButton StartStopButton = (ToggleButton)
-		// findViewById(R.id.id_button_start_stop);
-		// StartStopButton.setChecked(TR_IS_RUNNING);
+
 
 		mTabHost = getTabHost();
 		TabSpec tabSpec = mTabHost.newTabSpec("tab_actions");
@@ -44,6 +38,7 @@ public class TravelReminder extends TabActivity {
 		Context ctx = this.getApplicationContext();
 		Intent i = new Intent(ctx, ActionView.class);
 		tabSpec.setContent(i);
+		
 		mTabHost.addTab(tabSpec);
 
 		tabSpec = mTabHost.newTabSpec("tab_map");
@@ -51,6 +46,7 @@ public class TravelReminder extends TabActivity {
 		ctx = this.getApplicationContext();
 		i = new Intent(ctx, MapTabView.class);
 		tabSpec.setContent(i);
+		
 		mTabHost.addTab(tabSpec);
 
 		/*
@@ -61,6 +57,7 @@ public class TravelReminder extends TabActivity {
 
 		mTabHost.addTab(mTabHost.newTabSpec("tab_credits")
 				.setIndicator("Credits").setContent(R.id.textview2));
+		
 		mTabHost.setCurrentTab(0);
 
 	}

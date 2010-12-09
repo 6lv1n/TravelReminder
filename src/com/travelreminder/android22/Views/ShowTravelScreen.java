@@ -1,4 +1,4 @@
-package com.travelreminder.android22.Screens;
+package com.travelreminder.android22.Views;
 
 import java.util.List;
 
