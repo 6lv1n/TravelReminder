@@ -8,34 +8,34 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-import com.travelreminder.android22.Views.UserActionView;
 import com.travelreminder.android22.Views.MapTabView;
+import com.travelreminder.android22.Views.UserActionView;
 
 public class TravelReminder extends TabActivity {
 
-	public static Travel testTravel;
-	public static boolean TR_IS_RUNNING;
+	public static boolean TR_IS_RUNNING = false;
 	public static final String PREFS_NAME = "MyPrefsFile";
 
 	private SharedPreferences mPrefs;
-	private TabHost mTabHost;
+	private static TabHost mTabHost;
 
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		mPrefs = getSharedPreferences(PREFS_NAME, 0);
-
-		// FIXME
-		TR_IS_RUNNING = (mPrefs.getBoolean("TR_STATE", false) && testTravel != null);
-
+		SharedPreferences.Editor ed = mPrefs.edit();
+		ed.putBoolean("TR_STATE", false);
+		ed.commit();
+		
 		setContentView(R.layout.main);
 
+		Context ctx = this.getApplicationContext();
 
 		mTabHost = getTabHost();
 		TabSpec tabSpec = mTabHost.newTabSpec("tab_actions");
 		tabSpec.setIndicator("Actions");
-		Context ctx = this.getApplicationContext();
 		Intent i = new Intent(ctx, UserActionView.class);
 		tabSpec.setContent(i);
 		
@@ -43,7 +43,6 @@ public class TravelReminder extends TabActivity {
 
 		tabSpec = mTabHost.newTabSpec("tab_map");
 		tabSpec.setIndicator("Map");
-		ctx = this.getApplicationContext();
 		i = new Intent(ctx, MapTabView.class);
 		tabSpec.setContent(i);
 		
@@ -71,12 +70,21 @@ public class TravelReminder extends TabActivity {
 		ed.commit();
 	};
 
+	@Override
 	protected void onStop() {
 		super.onStop();
 		mPrefs = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 		ed.putBoolean("TR_STATE", TR_IS_RUNNING);
 		ed.commit();
+	}
+
+	public static TabHost getmTabHost() {
+		return mTabHost;
+	}
+
+	public static void setmTabHost(TabHost mTabHost) {
+		TravelReminder.mTabHost = mTabHost;
 	}
 
 }

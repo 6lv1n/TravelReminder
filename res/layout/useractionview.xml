@@ -10,12 +10,11 @@
 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:stretchColumns="1">
-
-
-		<ToggleButton android:id="@+id/id_button_start_stop"
+		
+		<ToggleButton android:id="@+id/id_button_start_stop_new_travel"
 			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true" android:textOff="@string/str_button_start"
-			android:textOn="@string/str_button_stop" android:onClick="startTravelButtonAction" />
+			android:layout_alignParentBottom="true" android:textOff="@string/str_button_start_new_travel"
+			android:textOn="@string/str_button_stop_new_travel" android:onClick="startStopNewTravelButtonAction" />
 
 		<Button android:id="@+id/id_button_add_step"
 			android:layout_width="fill_parent" android:layout_height="wrap_content"

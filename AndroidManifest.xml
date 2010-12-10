@@ -15,7 +15,11 @@
 				<action android:name="android.intent.action.MAIN"></action>
 			</intent-filter>
 		</activity>
-		<activity android:name=".Views.ActionView" android:label="TR: Add Step"> 
+		<activity android:label="TR: Add Step" android:name=".Views.UserActionView">
+			<intent-filter>
+				<category android:name="android.intent.category.EMBED"></category>
+				<action android:name="android.intent.action.MAIN"></action>
+			</intent-filter>
 		</activity>
 		<uses-library android:name="com.google.android.maps" />
 	</application>
@@ -23,6 +27,8 @@
 	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"></uses-permission>
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
 	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 	<uses-sdk android:minSdkVersion="8" />
 </manifest> 

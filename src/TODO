@@ -20,5 +20,10 @@ interface de sauvegarde --> prefs, historique
 5/ une timeline couplé diapo
 6/ partage de trajets
 
+interface d'accès aux trajets:
 
-
+classe qui utilise json et accès aux fichiers
+lit fichier de sav des travels, si vide on créé, retourne desc des trajets aux formats jSON
+Une méthode de cette classe retournera un treeset des trajets trié par date, méthode basée sur le parse json
+qui reconstruit les étapes, les trajets qui sont stockés dans un treeset puis retournés
+   

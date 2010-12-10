@@ -1,10 +1,7 @@
 package com.travelreminder.android22.Views;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -12,12 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.maps.Overlay;
 import com.travelreminder.android22.MyLocation;
 import com.travelreminder.android22.MyLocation.LocationResult;
 import com.travelreminder.android22.R;
-import com.travelreminder.android22.StepItemizedOverlay;
-import com.travelreminder.android22.TravelReminder;
+
 
 public class AddStepView extends Activity {
 
@@ -40,7 +35,7 @@ public class AddStepView extends Activity {
 				finish();
 			}
 		});
-		getUserPosition();
+		//getUserPosition();
 	}
 
 	public LocationResult locationResult = new LocationResult() {
@@ -57,7 +52,6 @@ public class AddStepView extends Activity {
 						mTxtViewlong.setText(" " + location.getLongitude());
 					}
 				});
-				TravelReminder.testTravel.addStep(location);
 			} else {
 				mTxtViewlat.getHandler().post(new Runnable() {
 					public void run() {
