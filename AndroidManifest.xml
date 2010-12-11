@@ -19,6 +19,8 @@
 		</activity>
 		<activity android:label="Add Step" android:name=".Views.AddStepView">
 		</activity>
+		<activity android:label="Credits" android:name=".Views.CreditsView">
+		</activity>
 		<uses-library android:name="com.google.android.maps" />
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>

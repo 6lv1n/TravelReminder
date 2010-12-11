@@ -13,7 +13,6 @@ import com.travelreminder.android22.MyLocation;
 import com.travelreminder.android22.MyLocation.LocationResult;
 import com.travelreminder.android22.R;
 
-
 public class AddStepView extends Activity {
 
 	private MyLocation userLocation;

@@ -37,7 +37,25 @@ public class UserActionView extends Activity {
 		setContentView(R.layout.useractionview);
 	}
 	
-	public void startStopNewTravelButtonAction(View view) {
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
+		ed.commit();
+	};
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
+		ed.commit();
+	}
+	
+	public void startStopNewTravelButtonAction(View v) {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 
@@ -68,7 +86,7 @@ public class UserActionView extends Activity {
 
 	}
 	
-	public void exitButtonAction(View view) {
+	public void exitButtonAction(View v) {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 		ed.putBoolean("TR_STATE", false);
@@ -76,25 +94,11 @@ public class UserActionView extends Activity {
 		finish();
 	}
 
-	/*
-	 * FIXME
-	 */
-	
-	public void addStepButtonAction(View view) {
+	public void addStepButtonAction(View v) {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		if(mPrefs.getBoolean("TR_STATE", false)) {
-			
-			// FIXME TODO 
-			// Trouver le moyen d'ouvrir l'écran de captures de coo gps
-			
-      //} 
-			
 			Intent i = new Intent(this, AddStepView.class);
 			startActivity(i);
-			
-			
-			
-			
 		} else {
 			String txtToast = "No travel started.\nNo Step added.";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
@@ -102,22 +106,8 @@ public class UserActionView extends Activity {
 			toast.show();
 		}
 	}
-	
-	/*
-	public void addStepButtonAction(View view) {
-		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
-		if(mPrefs.getBoolean("TR_STATE", false)) {
-			Intent i = new Intent(UserActionView.this, AddStepView.class);
-			startActivity(i);
-		} else {
-			String txtToast = "No travel started.\nNo Step added.";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
-		}
-	}*/
 
-	public void showTravelButtonAction(View view) {
+	public void showTravelButtonAction(View v) {
 		/*if (!TR_IS_RUNNING) {
 			String txtToast = "TR is not started!";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
