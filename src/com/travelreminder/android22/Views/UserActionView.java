@@ -59,7 +59,7 @@ public class UserActionView extends Activity {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 
-		if(!mPrefs.getBoolean("TR_STATE", false)) {
+		if(!mPrefs.getBoolean("TR_STATE", true)) {
 			ed.putBoolean("TR_STATE", true);
 			ed.commit();
 			

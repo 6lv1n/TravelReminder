@@ -18,7 +18,7 @@ public class TravelReminder extends TabActivity {
 
 	private SharedPreferences mPrefs;
 	private static TabHost mTabHost;
-
+	
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class TravelReminder extends TabActivity {
 		tabSpec.setContent(i);
 
 		mTabHost.addTab(tabSpec);
-
+		
 		/*
 		 * tabSpec = mTabHost.newTabSpec("tab_settings");
 		 * tabSpec.setIndicator("Settings"); ctx = this.getApplicationContext();
@@ -65,6 +65,12 @@ public class TravelReminder extends TabActivity {
 
 		mTabHost.setCurrentTab(0);
 
+		mPrefs = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor ed = mPrefs.edit();
+		// FIXME
+		ed.putBoolean("TR_STATE", false);
+		ed.commit();
+		
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-public class MyLocation {
+public class UserLocation {
 	
 	public Timer timer1;
 	LocationManager lm;
@@ -123,4 +123,5 @@ public class MyLocation {
 	public static abstract class LocationResult {
 		public abstract void gotLocation(Location location);
 	}
+	
 }
