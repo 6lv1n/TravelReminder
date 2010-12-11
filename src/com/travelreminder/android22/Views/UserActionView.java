@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AnalogClock;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 import android.widget.Toast;
 
 import com.travelreminder.android22.R;
@@ -92,8 +89,8 @@ public class UserActionView extends Activity {
 			
       //} 
 			
-			/*Intent i = new Intent(UserActionView.this, AddStepView.class);
-			startActivity(i);*/
+			Intent i = new Intent(this, AddStepView.class);
+			startActivity(i);
 			
 			
 			

@@ -34,6 +34,7 @@ public class TravelReminder extends TabActivity {
 		Context ctx = this.getApplicationContext();
 
 		mTabHost = getTabHost();
+		
 		TabSpec tabSpec = mTabHost.newTabSpec("tab_actions");
 		tabSpec.setIndicator("Actions");
 		Intent i = new Intent(ctx, UserActionView.class);

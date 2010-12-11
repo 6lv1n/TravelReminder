@@ -35,7 +35,7 @@ public class AddStepView extends Activity {
 				finish();
 			}
 		});
-		//getUserPosition();
+		getUserPosition();
 	}
 
 	public LocationResult locationResult = new LocationResult() {
