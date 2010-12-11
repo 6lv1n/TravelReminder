@@ -117,8 +117,6 @@ public class AddStepView extends Activity implements Runnable {
 					}
 				});
 			} else {
-				mTxtViewlat.setText("No latitude found in time");
-				mTxtViewlong.setText("No longitude found in time");
 				mTxtViewlat.getHandler().post(new Runnable() {
 					public void run() {
 						mTxtViewlat.setText("No latitude found in time");
