@@ -85,8 +85,9 @@ public class AddStepView extends Activity implements Runnable {
 			Looper.loop();
 		} else if (userLocationFound != null
 				&& !Double.isNaN(userLocationFound.getLatitude())) {
-			fillTexteViewWithCoo();
+			//Looper.getMainLooper().quit();
 			Looper.myLooper().quit();
+			fillTexteViewWithCoo();
 			handler.sendEmptyMessage(0);
 		} else Looper.loop();
 
