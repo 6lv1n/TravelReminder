@@ -5,19 +5,16 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
-//import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.travelreminder.android22.R;
 import com.travelreminder.android22.TravelReminder;
 import com.travelreminder.android22.UserLocation;
 import com.travelreminder.android22.UserLocation.LocationResult;
+import com.travelreminder.android22.Exceptions.NoCooException;
 
 public class AddStepView extends Activity implements Runnable {
 
@@ -43,10 +40,9 @@ public class AddStepView extends Activity implements Runnable {
 			}
 		});
 
-		userLocation = new UserLocation();
-
 		getCooProgressDialog = ProgressDialog.show(this, "",
 				"Looking for your position.\nPlease wait...", true, false);
+
 		Thread thread = new Thread(this);
 		thread.start();
 
@@ -72,49 +68,32 @@ public class AddStepView extends Activity implements Runnable {
 		ed.commit();
 	}
 
-	@Override
-	public void run() {
-
-		Looper.prepare();
-
-		if (!userLocation.getUserLocation(this, locationResult)) {
-			String txtToast = "Internal Error!";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
-			Looper.loop();
-		} else if (userLocationFound != null
-				&& !Double.isNaN(userLocationFound.getLatitude())) {
-			//Looper.getMainLooper().quit();
-			Looper.myLooper().quit();
-			fillTexteViewWithCoo();
-			handler.sendEmptyMessage(0);
-		} else Looper.loop();
-
-		//Looper.myLooper().quit();
-		// handler.sendEmptyMessage(0);
-
-		// SystemClock.sleep(3000);
-
-	}
-
-	private Handler handler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			getCooProgressDialog.dismiss();
-		}
-	};
-
 	private LocationResult locationResult = new LocationResult() {
 		@Override
 		public void gotLocation(final Location location) {
-			if (location != null
-					&& !Double.isNaN(location.getLatitude()))
+			if (location != null && !Double.isNaN(location.getLatitude())) {
 				userLocationFound = new Location(location);
-			else
+			} else
 				userLocationFound = null;
+			getCooProgressDialog.dismiss();
+			fillTexteViewWithCoo();
 		}
 	};
+
+	@Override
+	public void run() {
+		userLocation = new UserLocation();
+		Looper.prepare();
+		while(userLocationFound == null) {
+			try {
+				if (!userLocation.getUserLocation(this, locationResult)) {
+					throw new NoCooException("Internal Error");
+				}
+			} catch (NoCooException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public void fillTexteViewWithCoo() {
 		if (userLocationFound != null) {

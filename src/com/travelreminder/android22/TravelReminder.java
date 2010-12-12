@@ -67,7 +67,6 @@ public class TravelReminder extends TabActivity {
 
 		mPrefs = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
-		// FIXME
 		ed.putBoolean("TR_STATE", false);
 		ed.commit();
 		
