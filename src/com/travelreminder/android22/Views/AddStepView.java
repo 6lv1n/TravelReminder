@@ -6,8 +6,9 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
-import android.os.SystemClock;
+//import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,12 +21,13 @@ import com.travelreminder.android22.UserLocation.LocationResult;
 
 public class AddStepView extends Activity implements Runnable {
 
+	private Location userLocationFound;
 	private UserLocation userLocation;
 	private TextView mTxtViewlong;
 	private TextView mTxtViewlat;
 	protected ProgressDialog getCooProgressDialog;
 	private SharedPreferences mPrefs;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addstepview);
@@ -40,6 +42,8 @@ public class AddStepView extends Activity implements Runnable {
 				finish();
 			}
 		});
+
+		userLocation = new UserLocation();
 
 		getCooProgressDialog = ProgressDialog.show(this, "",
 				"Looking for your position.\nPlease wait...", true, false);
@@ -57,7 +61,7 @@ public class AddStepView extends Activity implements Runnable {
 		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
 		ed.commit();
 	};
-	
+
 	@Override
 	public void onStop() {
 		super.onStop();
@@ -67,69 +71,73 @@ public class AddStepView extends Activity implements Runnable {
 		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
 		ed.commit();
 	}
-	
+
 	@Override
 	public void run() {
-		//FIXME getUserPosition leve expetion car souci niveau thread je pense
-		//getUserPosition();
-		SystemClock.sleep(3000);
-		handler.sendEmptyMessage(0);
+
+		Looper.prepare();
+
+		if (!userLocation.getUserLocation(this, locationResult)) {
+			String txtToast = "Internal Error!";
+			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
+					Toast.LENGTH_SHORT);
+			toast.show();
+			Looper.loop();
+		} else if (userLocationFound != null
+				&& !Double.isNaN(userLocationFound.getLatitude())) {
+			fillTexteViewWithCoo();
+			Looper.myLooper().quit();
+			handler.sendEmptyMessage(0);
+		} else Looper.loop();
+
+		//Looper.myLooper().quit();
+		// handler.sendEmptyMessage(0);
+
+		// SystemClock.sleep(3000);
+
 	}
 
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			// FIXME getUserPosition() should be in run
-			// workaround: make illusion of searching ;) 
-			getUserPosition();
 			getCooProgressDialog.dismiss();
 		}
 	};
 
-	private void getUserPosition() {
-		userLocation = new UserLocation();
-		if (!userLocation.getLocation(this, locationResult)) {
-			String txtToast = "Error";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
-		}
-		/*
-		 * { throw new NoCooException("No Coo :X"); } } catch (NoCooException
-		 * ex) { String txtToast = ex.getMessage(); Toast toast =
-		 * Toast.makeText(getApplicationContext(), txtToast,
-		 * Toast.LENGTH_SHORT); toast.show(); }
-		 */
-	}
-	
 	private LocationResult locationResult = new LocationResult() {
 		@Override
 		public void gotLocation(final Location location) {
-			if (location != null) {
-				mTxtViewlat.getHandler().post(new Runnable() {
-					public void run() {
-						mTxtViewlat.setText(" " + location.getLatitude());
-					}
-				});
-				mTxtViewlong.getHandler().post(new Runnable() {
-					public void run() {
-						mTxtViewlong.setText(" " + location.getLongitude());
-					}
-				});
-			} else {
-				mTxtViewlat.getHandler().post(new Runnable() {
-					public void run() {
-						mTxtViewlat.setText("No latitude found in time");
-					}
-				});
-				mTxtViewlong.getHandler().post(new Runnable() {
-					public void run() {
-						mTxtViewlong.setText("No longitude found in time");
-					}
-				});
-			}
+			if (location != null
+					&& !Double.isNaN(location.getLatitude()))
+				userLocationFound = new Location(location);
+			else
+				userLocationFound = null;
 		}
 	};
 
+	public void fillTexteViewWithCoo() {
+		if (userLocationFound != null) {
+			mTxtViewlat.getHandler().post(new Runnable() {
+				public void run() {
+					mTxtViewlat.setText(" " + userLocationFound.getLatitude());
+				}
+			});
+			mTxtViewlong.getHandler().post(new Runnable() {
+				public void run() {
+					mTxtViewlong.setText(" " + userLocationFound.getLongitude());
+				}
+			});
+		} else {
+			mTxtViewlat.getHandler().post(new Runnable() {
+				public void run() {
+					mTxtViewlat.setText("No latitude found in time");
+				}
+			});
+			mTxtViewlong.getHandler().post(new Runnable() {
+				public void run() {
+					mTxtViewlong.setText("No longitude found in time");
+				}
+			});
+		}
+	}
 }
-
