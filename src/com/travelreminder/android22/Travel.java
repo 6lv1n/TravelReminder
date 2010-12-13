@@ -12,11 +12,11 @@ import android.location.Location;
 public class Travel {
 	
 	private TreeSet<Step> myTravel;
-	static final Comparator<Step> ORDRE_ETAPES = new StepComparator();
+	static final Comparator<Step> STEP_ORDER = new StepComparator();
 	private static final long serialVersionUID = -4248127581150201874L;
 	
 	public Travel() {
-		this.myTravel = new TreeSet<Step>(ORDRE_ETAPES);
+		this.myTravel = new TreeSet<Step>(STEP_ORDER);
 	}
 
 	public void addStep(Location newLocation) {

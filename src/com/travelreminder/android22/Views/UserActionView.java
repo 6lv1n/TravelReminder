@@ -16,8 +16,10 @@ import com.travelreminder.android22.TravelReminderStorage;
 
 public class UserActionView extends Activity {
 
+	public static TreeSet<Travel> userTravels;
+	public static Travel currentTravel;
 	private SharedPreferences mPrefs;
-	private String strStorageContent =  		
+	/*private String strStorageContent =
 		"[{\"menu\": {\n" + 
 			  "\"id\": \"file\",\n" + 
 			  "\"value\": \"File\",\n" + 
@@ -28,7 +30,7 @@ public class UserActionView extends Activity {
 			      "{\"value\": \"Close\", \"onclick\": \"CloseDoc()\"}\n" + 
 			    "]\n" +
 			  "}\n" +
-			"}}]\n";
+			"}}]\n";*/
 
 	/** Called when the activity is first created. */
 	@Override
@@ -68,11 +70,12 @@ public class UserActionView extends Activity {
 					Toast.LENGTH_SHORT);
 			toast.show();
 			
-			TravelReminderStorage trStorage = new TravelReminderStorage("trStorage.json");
+			/*TravelReminderStorage trStorage = new TravelReminderStorage("trStorage.json");
 			trStorage.initStorage();
-			trStorage.writeStorage(strStorageContent);
-			TreeSet<Travel> testTravel = trStorage.readStorage();
-			testTravel.size();
+			trStorage.writeStorage(strStorageContent);*/
+			//userTravels = trStorage.readStorage();
+			
+			currentTravel = new Travel();
 			
 		} else {
 			ed.putBoolean("TR_STATE", false);
@@ -99,6 +102,7 @@ public class UserActionView extends Activity {
 		if(mPrefs.getBoolean("TR_STATE", false)) {
 			Intent i = new Intent(this, AddStepView.class);
 			startActivity(i);
+			//TODO recuperer la Step depuis AddStepView
 		} else {
 			String txtToast = "No travel started.\nNo Step added.";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
@@ -108,22 +112,7 @@ public class UserActionView extends Activity {
 	}
 
 	public void showTravelButtonAction(View v) {
-		/*if (!TR_IS_RUNNING) {
-			String txtToast = "TR is not started!";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
-			return;
-		}
-		if (testTravel.getTravel().size() > 0) {
-			Intent i = new Intent(TravelReminder.this, ShowTravelScreen.class);
-			startActivity(i);
-		} else {
-			String txtToast = "Travel is empty!";
-			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
-					Toast.LENGTH_SHORT);
-			toast.show();
-		}*/
+		TravelReminder.getmTabHost().setCurrentTabByTag("tab_map");
 	}
 	
 }

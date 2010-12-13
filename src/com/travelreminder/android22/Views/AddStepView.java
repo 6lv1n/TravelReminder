@@ -75,6 +75,7 @@ public class AddStepView extends Activity implements Runnable {
 				userLocationFound = new Location(location);
 			} else
 				userLocationFound = null;
+			UserActionView.currentTravel.addStep(location);
 			getCooProgressDialog.dismiss();
 			fillTexteViewWithCoo();
 		}
