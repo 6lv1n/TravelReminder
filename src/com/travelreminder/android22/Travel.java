@@ -31,40 +31,27 @@ public class Travel {
 		this.myTravel.remove(lazzyStep); 
 	}
 
-	public Step getStep(Location locationResearched) {
-		
+	public Step getStep(Location locationResearched) {	
 		final Iterator<Step> travelIterator = this.myTravel.iterator();
-		
-		Step tmpStep = new Step(locationResearched);
-		
+		Step tmpStep;
 		while (travelIterator.hasNext()) {
 			tmpStep = travelIterator.next(); 
 			if (tmpStep.getLocation().equals(locationResearched))
 				return tmpStep; 
 		}
-		
-		/*while (travelIterator.hasNext()) {
-			if(this.myTravel.comparator().compare(tmpStep, (Step)travelIterator.next()) > 0) 
-				return (Step)travelIterator.next();
-					
-		}*/
-		
 		return null;
 	}
 	
-	/*public Step getStep(Step stepResearched) {
-		
+	public boolean hasStep(Step stepResearched) {
 		final Iterator<Step> travelIterator = this.myTravel.iterator();	
-		
+		Step tmpStep;
 		while (travelIterator.hasNext()) {
-			
-			if(this.myTravel.comparator().compare(stepResearched, (Step)travelIterator.next()) > 0) 
-				return (Step)travelIterator.next();
-					
+			tmpStep = travelIterator.next(); 
+			if(tmpStep.equals(stepResearched)) 
+				return true;
 		}
-		
-		return null;
-	}*/
+		return false;
+	}
 	
 	public TreeSet<Step> getTravel() {
 		return myTravel;

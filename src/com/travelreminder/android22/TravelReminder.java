@@ -1,5 +1,7 @@
 package com.travelreminder.android22;
 
+import java.util.TreeSet;
+
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +20,9 @@ public class TravelReminder extends TabActivity {
 
 	private SharedPreferences mPrefs;
 	private static TabHost mTabHost;
-	
+	public static TreeSet<Travel> userTravels;
+	public static Travel currentTravel;
+
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,7 @@ public class TravelReminder extends TabActivity {
 		tabSpec.setContent(i);
 
 		mTabHost.addTab(tabSpec);
-		
+
 		/*
 		 * tabSpec = mTabHost.newTabSpec("tab_settings");
 		 * tabSpec.setIndicator("Settings"); ctx = this.getApplicationContext();
@@ -67,9 +71,9 @@ public class TravelReminder extends TabActivity {
 
 		mPrefs = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
-		ed.putBoolean("TR_STATE", false);
+		ed.putBoolean("TR_NEW_TRAVEL", false);
 		ed.commit();
-		
+
 	}
 
 	@Override
@@ -77,7 +81,8 @@ public class TravelReminder extends TabActivity {
 		super.onPause();
 		mPrefs = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
-		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
+		ed.putBoolean("TR_NEW_TRAVEL",
+				mPrefs.getBoolean("TR_NEW_TRAVEL", false));
 		ed.commit();
 	};
 
@@ -86,7 +91,8 @@ public class TravelReminder extends TabActivity {
 		super.onStop();
 		mPrefs = getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
-		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
+		ed.putBoolean("TR_NEW_TRAVEL",
+				mPrefs.getBoolean("TR_NEW_TRAVEL", false));
 		ed.commit();
 	}
 

@@ -55,6 +55,7 @@ public class AddStepView extends Activity implements Runnable {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
+		ed.putBoolean("TR_NEW_TRAVEL", mPrefs.getBoolean("TR_NEW_TRAVEL", false));
 		ed.commit();
 	};
 
@@ -65,6 +66,7 @@ public class AddStepView extends Activity implements Runnable {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
+		ed.putBoolean("TR_NEW_TRAVEL", mPrefs.getBoolean("TR_NEW_TRAVEL", false));
 		ed.commit();
 	}
 
@@ -75,7 +77,7 @@ public class AddStepView extends Activity implements Runnable {
 				userLocationFound = new Location(location);
 			} else
 				userLocationFound = null;
-			UserActionView.currentTravel.addStep(location);
+			TravelReminder.currentTravel.addStep(location);
 			getCooProgressDialog.dismiss();
 			fillTexteViewWithCoo();
 		}
