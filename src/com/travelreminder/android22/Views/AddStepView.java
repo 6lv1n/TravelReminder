@@ -39,13 +39,11 @@ public class AddStepView extends Activity implements Runnable {
 				finish();
 			}
 		});
-
 		getCooProgressDialog = ProgressDialog.show(this, "",
 				"Looking for your position.\nPlease wait...", true, false);
 
 		Thread thread = new Thread(this);
 		thread.start();
-
 	}
 
 	@Override
@@ -55,7 +53,8 @@ public class AddStepView extends Activity implements Runnable {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
-		ed.putBoolean("TR_NEW_TRAVEL", mPrefs.getBoolean("TR_NEW_TRAVEL", false));
+		ed.putBoolean("TR_NEW_TRAVEL",
+				mPrefs.getBoolean("TR_NEW_TRAVEL", false));
 		ed.commit();
 	};
 
@@ -66,7 +65,8 @@ public class AddStepView extends Activity implements Runnable {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		SharedPreferences.Editor ed = mPrefs.edit();
 		ed.putBoolean("TR_STATE", mPrefs.getBoolean("TR_STATE", false));
-		ed.putBoolean("TR_NEW_TRAVEL", mPrefs.getBoolean("TR_NEW_TRAVEL", false));
+		ed.putBoolean("TR_NEW_TRAVEL",
+				mPrefs.getBoolean("TR_NEW_TRAVEL", false));
 		ed.commit();
 	}
 
@@ -87,14 +87,12 @@ public class AddStepView extends Activity implements Runnable {
 	public void run() {
 		userLocation = new UserLocation();
 		Looper.prepare();
-		while(userLocationFound == null) {
-			try {
-				if (!userLocation.getUserLocation(this, locationResult)) {
-					throw new NoCooException("Internal Error");
-				}
-			} catch (NoCooException e) {
-				e.printStackTrace();
+		try {
+			if (!userLocation.getUserLocation(this, locationResult)) {
+				throw new NoCooException("Internal Error");
 			}
+		} catch (NoCooException e) {
+			e.printStackTrace();
 		}
 	}
 
