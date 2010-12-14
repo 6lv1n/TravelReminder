@@ -41,7 +41,6 @@ public class MapTabView extends MapActivity implements Runnable {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Toast.makeText(this, "onResume.", Toast.LENGTH_SHORT).show();
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		if (mPrefs.getBoolean("STEP_MODE", false)) {
 			setUserLocationOnMap();
@@ -56,7 +55,6 @@ public class MapTabView extends MapActivity implements Runnable {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Toast.makeText(this, "onPause.", Toast.LENGTH_SHORT).show();
 		try {
 			userLocation.timer1.cancel();
 		} catch (Exception e) {
@@ -73,7 +71,6 @@ public class MapTabView extends MapActivity implements Runnable {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		Toast.makeText(this, "onStop.", Toast.LENGTH_SHORT).show();
 		try {
 			userLocation.timer1.cancel();
 		} catch (Exception e) {
