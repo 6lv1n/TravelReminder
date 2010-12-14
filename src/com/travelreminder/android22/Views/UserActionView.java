@@ -1,12 +1,10 @@
 package com.travelreminder.android22.Views;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import com.travelreminder.android22.R;
 import com.travelreminder.android22.Travel;
 import com.travelreminder.android22.TravelReminder;
@@ -75,8 +73,10 @@ public class UserActionView extends Activity {
 	public void addStepButtonAction(View v) {
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		if (mPrefs.getBoolean("TR_NEW_TRAVEL", false)) {
-			Intent i = new Intent(this, AddStepView.class);
-			startActivity(i);
+			SharedPreferences.Editor ed = mPrefs.edit();
+			ed.putBoolean("STEP_MODE", true);
+			ed.commit();
+			TravelReminder.mTabHost.setCurrentTabByTag("tab_map");
 		} else {
 			String txtToast = "No travel started.\nNo Step added.";
 			Toast toast = Toast.makeText(getApplicationContext(), txtToast,
@@ -86,7 +86,7 @@ public class UserActionView extends Activity {
 	}
 
 	public void showTravelButtonAction(View v) {
-		TravelReminder.getmTabHost().setCurrentTabByTag("tab_map");
+		TravelReminder.mTabHost.setCurrentTabByTag("tab_map");
 	}
 	
 	public void exitButtonAction(View v) {

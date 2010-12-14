@@ -27,3 +27,6 @@ lit fichier de sav des travels, si vide on créé, retourne desc des trajets aux
 Une méthode de cette classe retournera un treeset des trajets trié par date, méthode basée sur le parse json
 qui reconstruit les étapes, les trajets qui sont stockés dans un treeset puis retournés
    
+   
+Add step view --> charge map avec param indique si il faut récupérer coo et afficher plus possibilité recommencer et/ou déplacer le curseur
+Show travel --> charge map avec param indique affiche trajet avec étépes

@@ -77,6 +77,7 @@ public class AddStepView extends Activity implements Runnable {
 				userLocationFound = new Location(location);
 			} else
 				userLocationFound = null;
+			// TODO controle sur accuracy
 			TravelReminder.currentTravel.addStep(location);
 			getCooProgressDialog.dismiss();
 			fillTexteViewWithCoo();

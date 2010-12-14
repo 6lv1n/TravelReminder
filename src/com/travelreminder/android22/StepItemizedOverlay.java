@@ -1,15 +1,9 @@
 package com.travelreminder.android22;
 
 import java.util.ArrayList;
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-
 import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 public class StepItemizedOverlay extends ItemizedOverlay<OverlayItem> {
@@ -23,7 +17,7 @@ public class StepItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
 	public StepItemizedOverlay(Drawable defaultMarker, Context context) {
 		super(defaultMarker);
-		mContext = context;
+		setmContext(context);
 	}
 
 	@Override
@@ -41,6 +35,14 @@ public class StepItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 		populate();
 	}
 
+	public void setmContext(Context mContext) {
+		this.mContext = mContext;
+	}
+
+	public Context getmContext() {
+		return mContext;
+	}
+	
 	@Override
 	protected boolean onTap(int index) {
 		  //OverlayItem item = mOverlays.get(index);
