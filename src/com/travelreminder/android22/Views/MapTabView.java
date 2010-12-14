@@ -35,7 +35,6 @@ public class MapTabView extends MapActivity implements Runnable {
 	protected void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 		setContentView(R.layout.showtravelview);
-		Toast.makeText(this, "onCreate.", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
