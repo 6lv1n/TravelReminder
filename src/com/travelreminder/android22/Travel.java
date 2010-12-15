@@ -19,6 +19,16 @@ public class Travel {
 		this.myTravel = new TreeSet<Step>(STEP_ORDER);
 	}
 
+	public TreeSet<Step> clone(Travel travelToClone) {
+		try {
+			return (TreeSet<Step>) travelToClone.getTravel().clone();
+		} catch (ClassCastException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public void addStep(Location newLocation) {
 		this.myTravel.add(new Step(newLocation)); 
 	}

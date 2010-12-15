@@ -29,7 +29,10 @@ import com.travelreminder.android22.Exceptions.NoCooException;
 public class MapTabView extends MapActivity implements Runnable {
 	private MapView mapView;
 	private MapController mc;
-	private StepItemizedOverlay stepItemizedOverlay;
+	private StepItemizedOverlay firstStepItemizedOverlay;
+	private StepItemizedOverlay interStepItemizedOverlay;
+	private StepItemizedOverlay lastStepItemizedOverlay;
+
 	private SharedPreferences mPrefs;
 	protected ProgressDialog getCooProgressDialog;
 	private List<Overlay> mapOverlays;
@@ -99,14 +102,14 @@ public class MapTabView extends MapActivity implements Runnable {
 		mapOverlays = mapView.getOverlays();
 		Drawable drawable = this.getResources().getDrawable(
 				R.drawable.androidmarker);
-		stepItemizedOverlay = new StepItemizedOverlay(drawable);
+		interStepItemizedOverlay = new StepItemizedOverlay(drawable);
 		GeoPoint p = new GeoPoint((int) (steptoDisplay.getLocation()
 				.getLatitude() * 1E6), (int) (steptoDisplay.getLocation()
 				.getLongitude() * 1E6));
 		OverlayItem overlayItem = new OverlayItem(p, "XXX", "YYY");
-		stepItemizedOverlay.addOverlay(overlayItem);
+		interStepItemizedOverlay.addOverlay(overlayItem);
 		mapOverlays.clear();
-		mapOverlays.add(stepItemizedOverlay);
+		mapOverlays.add(interStepItemizedOverlay);
 		mc = mapView.getController();
 		mc.animateTo(p);
 		mc.setZoom(DEFAULT_ZOOM_LEVEL);
@@ -114,34 +117,61 @@ public class MapTabView extends MapActivity implements Runnable {
 	}
 
 	public void displayTravelOnMap(Travel traveltoDisplay) {
-		mapView = (MapView) findViewById(R.id.mapview);
-		mapView.setBuiltInZoomControls(true);
-		mapOverlays = mapView.getOverlays();
-		Drawable drawable = this.getResources().getDrawable(
-				R.drawable.androidmarker);
-		stepItemizedOverlay = new StepItemizedOverlay(drawable);
 		mPrefs = getSharedPreferences(TravelReminder.PREFS_NAME, 0);
 		if (mPrefs.getBoolean("TR_NEW_TRAVEL", true)) {
 			if (traveltoDisplay.getTravel().size() > 0) {
+				mapView = (MapView) findViewById(R.id.mapview);
+				mapView.setBuiltInZoomControls(true);
+				mapOverlays = mapView.getOverlays();
+				
+				Drawable drawable = this.getResources().getDrawable(
+						R.drawable.startflag);
+				firstStepItemizedOverlay = new StepItemizedOverlay(drawable);
+				
+				drawable = this.getResources().getDrawable(
+						R.drawable.finishflag);
+				lastStepItemizedOverlay = new StepItemizedOverlay(drawable);
+				
 				final Iterator<Step> travelIterator = traveltoDisplay
 						.getTravel().iterator();
+				Step firstStep = travelIterator.next();
+				GeoPoint p = new GeoPoint((int) (firstStep.getLocation()
+						.getLatitude() * 1E6), (int) (firstStep.getLocation()
+						.getLongitude() * 1E6));
+				OverlayItem overlayItem = new OverlayItem(p, "XXX", "YYY");
+				firstStepItemizedOverlay.addOverlay(overlayItem);
+				mapOverlays.add(firstStepItemizedOverlay);
 				Step tmpStep;
-				while (travelIterator.hasNext()) {
-					tmpStep = travelIterator.next();
-					GeoPoint p = new GeoPoint((int) (tmpStep.getLocation()
-							.getLatitude() * 1E6), (int) (tmpStep.getLocation()
-							.getLongitude() * 1E6));
-					OverlayItem overlayItem = new OverlayItem(p, "XXX", "YYY");
-					stepItemizedOverlay.addOverlay(overlayItem);
-				}
-				mapOverlays.add(stepItemizedOverlay);
-				GeoPoint p = new GeoPoint((int) (TravelReminder.currentTravel
-						.getTravel().last().getLocation().getLatitude() * 1E6),
-						(int) (TravelReminder.currentTravel.getTravel().last()
+				if (TravelReminder.currentTravel.getTravel().size() > 1) {
+					drawable = this.getResources().getDrawable(
+							R.drawable.androidmarker);
+					interStepItemizedOverlay = new StepItemizedOverlay(drawable);
+					//travelIterator.remove();
+					while (travelIterator.hasNext()) {
+						tmpStep = travelIterator.next();
+						p = new GeoPoint((int) (tmpStep.getLocation()
+								.getLatitude() * 1E6), (int) (tmpStep
 								.getLocation().getLongitude() * 1E6));
+						overlayItem = new OverlayItem(p, "XXX", "YYY");
+						interStepItemizedOverlay.addOverlay(overlayItem);
+						if (interStepItemizedOverlay.size() == TravelReminder.currentTravel
+								.getTravel().size() - 2) {
+							mapOverlays.add(interStepItemizedOverlay);
+							break;
+						}
+					}
+					p = new GeoPoint((int) (TravelReminder.currentTravel
+							.getTravel().last().getLocation().getLatitude() * 1E6),
+							(int) (TravelReminder.currentTravel.getTravel().last()
+									.getLocation().getLongitude() * 1E6));
+					overlayItem = new OverlayItem(p, "XXX", "YYY");
+					lastStepItemizedOverlay.addOverlay(overlayItem);
+					mapOverlays.add(lastStepItemizedOverlay);
+				}
 				mc.animateTo(p);
 				mc.setZoom(DEFAULT_ZOOM_LEVEL);
-				//mapView.invalidate();
+				mapView.invalidate();
+				
 			} else {
 				Toast.makeText(this, "Travel is empty.", Toast.LENGTH_SHORT)
 						.show();
