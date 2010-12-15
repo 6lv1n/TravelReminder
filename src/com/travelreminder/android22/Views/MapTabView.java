@@ -7,10 +7,13 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
@@ -25,11 +28,13 @@ import com.travelreminder.android22.Exceptions.NoCooException;
 
 public class MapTabView extends MapActivity implements Runnable {
 	private MapView mapView;
+	private MapController mc;
 	private StepItemizedOverlay stepItemizedOverlay;
 	private SharedPreferences mPrefs;
 	protected ProgressDialog getCooProgressDialog;
 	private List<Overlay> mapOverlays;
 	private UserLocation userLocation;
+	private final int DEFAULT_ZOOM_LEVEL = 5;
 
 	@Override
 	protected void onCreate(Bundle icicle) {
@@ -88,6 +93,26 @@ public class MapTabView extends MapActivity implements Runnable {
 		return false;
 	}
 
+	public void displayStepOnMap(Step steptoDisplay) {
+		mapView = (MapView) findViewById(R.id.mapview);
+		mapView.setBuiltInZoomControls(true);
+		mapOverlays = mapView.getOverlays();
+		Drawable drawable = this.getResources().getDrawable(
+				R.drawable.androidmarker);
+		stepItemizedOverlay = new StepItemizedOverlay(drawable);
+		GeoPoint p = new GeoPoint((int) (steptoDisplay.getLocation()
+				.getLatitude() * 1E6), (int) (steptoDisplay.getLocation()
+				.getLongitude() * 1E6));
+		OverlayItem overlayItem = new OverlayItem(p, "XXX", "YYY");
+		stepItemizedOverlay.addOverlay(overlayItem);
+		mapOverlays.clear();
+		mapOverlays.add(stepItemizedOverlay);
+		mc = mapView.getController();
+		mc.animateTo(p);
+		mc.setZoom(DEFAULT_ZOOM_LEVEL);
+		mapView.invalidate();
+	}
+
 	public void displayTravelOnMap(Travel traveltoDisplay) {
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
@@ -110,6 +135,13 @@ public class MapTabView extends MapActivity implements Runnable {
 					stepItemizedOverlay.addOverlay(overlayItem);
 				}
 				mapOverlays.add(stepItemizedOverlay);
+				GeoPoint p = new GeoPoint((int) (TravelReminder.currentTravel
+						.getTravel().last().getLocation().getLatitude() * 1E6),
+						(int) (TravelReminder.currentTravel.getTravel().last()
+								.getLocation().getLongitude() * 1E6));
+				mc.animateTo(p);
+				mc.setZoom(DEFAULT_ZOOM_LEVEL);
+				//mapView.invalidate();
 			} else {
 				Toast.makeText(this, "Travel is empty.", Toast.LENGTH_SHORT)
 						.show();
@@ -124,6 +156,10 @@ public class MapTabView extends MapActivity implements Runnable {
 	public void setUserLocationOnMap() {
 		getCooProgressDialog = ProgressDialog.show(this, "",
 				"Looking for your position.\nPlease wait...", true, false);
+		mapView = (MapView) findViewById(R.id.mapview);
+		mapView.setBuiltInZoomControls(true);
+		mapOverlays = mapView.getOverlays();
+		mapOverlays.clear();
 		Thread thread = new Thread(this);
 		thread.start();
 	}
@@ -144,6 +180,7 @@ public class MapTabView extends MapActivity implements Runnable {
 	private LocationResult locationResult = new LocationResult() {
 		@Override
 		public void gotLocation(final Location location) {
+			Looper.prepare();
 			if (location != null && !Double.isNaN(location.getLatitude())) {
 				TravelReminder.currentTravel.addStep(location);
 			} else {
@@ -152,8 +189,16 @@ public class MapTabView extends MapActivity implements Runnable {
 						Toast.LENGTH_SHORT).show();
 			}
 			// TODO controle sur accuracy
+			dipslayStepOnMapHandler.sendEmptyMessage(0);
+		}
+	};
+
+	private Handler dipslayStepOnMapHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
 			getCooProgressDialog.dismiss();
-			displayTravelOnMap(TravelReminder.currentTravel);
+			displayStepOnMap(TravelReminder.currentTravel.getTravel().last());
+			super.handleMessage(msg);
 		}
 	};
 

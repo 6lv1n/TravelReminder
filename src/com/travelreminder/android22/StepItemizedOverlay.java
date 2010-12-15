@@ -1,8 +1,11 @@
 package com.travelreminder.android22;
 
 import java.util.ArrayList;
+
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
@@ -42,28 +45,15 @@ public class StepItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	public Context getmContext() {
 		return mContext;
 	}
-	
+
 	@Override
 	protected boolean onTap(int index) {
-		  //OverlayItem item = mOverlays.get(index);
-		  //AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-		  //dialog.setTitle(item.getTitle());
-		  //dialog.setMessage(item.getSnippet());
-		  //dialog.show();
+		  OverlayItem item = mOverlays.get(index);
+		  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+		  dialog.setTitle(item.getTitle());
+		  dialog.setMessage(item.getSnippet());
+		  dialog.show();
 		  return true;
-
-		/*OverlayItem item = mOverlays.get(index);
-		AlertDialog dialog = new AlertDialog.Builder(mContext).create();
-		dialog.setTitle(item.getTitle());
-		dialog.setMessage(item.getSnippet());
-
-		dialog.setButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				return;
-			}
-		});
-		dialog.show();
-		return true;*/
 	}
 
 }
